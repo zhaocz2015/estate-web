@@ -1,0 +1,98 @@
+@CHARSET "UTF-8";
+body, input, textarea {
+    font-family: '微软雅黑','Helvetica Neue',sans-serif,SimHei;
+    -webkit-font-smoothing: antialiased;
+}
+
+body{
+	margin: 0px;
+    padding: 0px;
+    height: 100%;
+    background: url("https://dn-coding-net-production-static.qbox.me/d58141c9-9a0c-40b0-a408-5935fd70670f.jpg") 50% 50% / cover no-repeat fixed;
+}
+
+.account-container {
+    position: relative;
+    z-index: 1001;
+    width: 400px;
+    margin-top: 300px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 30px 40px 40px;
+    border-radius: 10px;
+    background-color: #fff;
+}
+
+.account-container h2 {
+    margin: 0 0 25px;
+    font-size: 25px;
+    font-weight: 400;
+    text-align: center;
+    color: #323a45;
+}
+
+.account-container .account-input {
+    position: relative;
+    height: 68px;
+}
+
+.account-container .account-input input {
+    height: 48px;
+    width: 370px;
+    padding-left: 15px;
+    padding-right: 15px;
+    margin-bottom: 15px;
+    font-size: 16px;
+    border: 1px solid rgba(50,58,69,.2);
+    border-radius: 5px;
+}
+
+.account-container .account-input.captcha input {
+    width: 275px;
+    padding-right: 110px;
+}
+
+.account-container .account-input.captcha img {
+    position: absolute;
+    right: 4px;
+    top: 6px;
+    height: 40px;
+    width: 95px;
+    cursor: pointer;
+}
+
+.account-container .ui.checkbox {
+    margin-left: 1px;
+    margin-bottom: 10px;
+}
+
+.ui.checkbox input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    outline: 0;
+}
+
+.account-container a {
+    color: rgba(0,0,0,.6);
+    transition: color .2s ease;
+}
+
+.account-container button {
+    width: 400px;
+    height: 68px;
+    border: none;
+    background-color: #323a45;
+    color: #fff;
+    font-size: 24px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: opacity .2s ease;
+    margin: 0 auto;
+}
+
+.account-container button[disabled=true], .account-container button[disabled] {
+    opacity: .5!important;
+    cursor: not-allowed!important;
+}

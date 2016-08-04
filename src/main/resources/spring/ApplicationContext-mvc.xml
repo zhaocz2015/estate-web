@@ -13,26 +13,23 @@
 	<context:component-scan base-package="com.t003" />
 
 	<!-- 对静态资源文件的访问  restful-->     
-	<mvc:resources mapping="/admin/**" location="/,/admin/" />
-	<mvc:resources mapping="/static/**" location="/,/static/" />
-	<mvc:resources mapping="/plugins/**" location="/,/plugins/" />
-	<mvc:resources mapping="/uploadFiles/**" location="/,/uploadFiles/" /> 
+	<mvc:resources mapping="/static/**" location="/static/" />
 
 	<!-- 访问拦截  -->  
   	<mvc:interceptors>
 		<mvc:interceptor>
 			<mvc:mapping path="/**/**"/>
-			<bean class="com.t003.base.interceptor.LoginHandlerInterceptor"/>
+			<bean class="com.t003.framework.base.interceptor.LoginHandlerInterceptor"/>
 		</mvc:interceptor>
 	</mvc:interceptors>
 	 
 	<!-- 配置SpringMVC的视图解析器 -->
 	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-		<property name="prefix" value="/WEB-INF/jsp/"/>
+		<property name="prefix" value="/jsp/"/>
 		<property name="suffix" value=".jsp"/>
 	</bean>
 	
-	<bean id="exceptionResolver" class="com.fh.resolver.MyExceptionResolver"></bean>
+	<bean id="exceptionResolver" class="com.t003.framework.base.resolver.MyExceptionResolver"></bean>
 	<!-- 上传拦截，如最大上传值及最小上传值 -->
 	  <bean id="multipartResolver"   class="org.springframework.web.multipart.commons.CommonsMultipartResolver" >   
 		  <property name="maxUploadSize">    

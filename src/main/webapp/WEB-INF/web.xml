@@ -50,7 +50,7 @@
 
 	<filter>
 		<filter-name>loginFilter</filter-name>
-		<filter-class>com.t003.base.filter.LoginFilter</filter-class>
+		<filter-class>com.t003.framework.base.filter.LoginFilter</filter-class>
 	</filter>
 	<listener>
 		<listener-class>org.springframework.web.util.Log4jConfigListener</listener-class>

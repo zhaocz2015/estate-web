@@ -85,7 +85,7 @@
 	
 	<!-- 事物处理 -->
 	<aop:config>
-		<aop:pointcut id="pc" expression="execution(* com.fh.service..*(..))" />
+		<aop:pointcut id="pc" expression="execution(* com.t003.*.service..*(..))" />
 		<aop:advisor pointcut-ref="pc" advice-ref="txAdvice" />
 	</aop:config>
 	
@@ -107,7 +107,7 @@
 		</bean>
 		
 		<!-- 項目自定义的Realm -->
-	    <bean id="ShiroRealm" class="com.t003.base.interceptor.shiro.ShiroRealm" ></bean>
+	    <bean id="ShiroRealm" class="com.t003.framework.base.interceptor.shiro.ShiroRealm" ></bean>
 		
 		<!-- Shiro Filter -->
 		<bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
@@ -121,15 +121,8 @@
 			
 			<property name="filterChainDefinitions">
 				<value>
-				/static/login/** 			= anon
-				/static/js/myjs/** 			= authc
-				/static/js/** 				= anon
-				/uploadFiles/uploadImgs/** 	= anon
-	           	/code.do 					= anon
-	           	/login_login	 			= anon
-	           	/app**/** 					= anon
-	           	/weixin/** 					= anon
-	           	/**							= authc
+					/static/**       		    = anon
+					/**                         = authc
 				</value>
 			</property>
 		</bean>
