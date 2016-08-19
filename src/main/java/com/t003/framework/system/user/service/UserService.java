@@ -31,8 +31,10 @@ public class UserService {
 		return (User) dao.findForObject("UserMapper.getUserAndRoleById", USER_ID);
 	}
 
-	public Page<User> getUsersByPage() throws Exception {
-		return (Page<User>) dao.findForList("UserMapper.userListPage", null, new RowBounds(1, 10));
+	public Page<User> getUsersByPage(Map<String, String> params) throws Exception {
+		int pageIndex = Integer.valueOf(params.get("page"));
+		int pageSize = Integer.valueOf(params.get("rows"));
+		return (Page<User>) dao.findForList("UserMapper.userListPage", null, new RowBounds(pageIndex, pageSize));
 	}
 
 }
