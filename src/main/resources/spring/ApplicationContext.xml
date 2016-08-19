@@ -123,6 +123,7 @@
 				<value>
 					/static/**       		    = anon
 					/login_login	 			= anon
+					/jsp/**						= anon
 					/**                         = authc
 				</value>
 			</property>

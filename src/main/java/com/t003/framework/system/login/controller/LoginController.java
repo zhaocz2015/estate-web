@@ -1,5 +1,6 @@
 package com.t003.framework.system.login.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -15,16 +16,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.t003.framework.base.controller.BaseController;
 import com.t003.framework.base.data.ResultMsg;
 import com.t003.framework.base.util.AppUtil;
 import com.t003.framework.base.util.Const;
+import com.t003.framework.base.util.RightsHelper;
+import com.t003.framework.base.util.Tools;
 import com.t003.framework.system.menu.entity.Menu;
 import com.t003.framework.system.menu.service.MenuService;
+import com.t003.framework.system.role.entity.Role;
 import com.t003.framework.system.user.entity.User;
 import com.t003.framework.system.user.service.UserService;
 
 @Controller
-public class LoginController {
+public class LoginController extends BaseController {
 
 	@Autowired
 	UserService userService;
@@ -34,7 +39,7 @@ public class LoginController {
 
 	@RequestMapping("/login_toLogin")
 	public ModelAndView toLogin() {
-		return new ModelAndView("system/login/login2");
+		return new ModelAndView("system/login/login");
 	}
 
 	@RequestMapping("login_login")
@@ -60,10 +65,61 @@ public class LoginController {
 	}
 
 	@RequestMapping("/main")
-	public ModelAndView index() throws Exception {
-		ModelAndView mav = new ModelAndView("main");
-		List<Menu> menus = menuService.listAllParentMenu();
-		mav.addObject("menus", menus);
+	public ModelAndView index() {
+		ModelAndView mav = new ModelAndView();
+
+		try {
+			Subject currentUser = SecurityUtils.getSubject();
+			Session session = currentUser.getSession();
+
+			User user = (User) session.getAttribute(Const.SESSION_USER);
+			if (user == null) {
+				mav.setViewName("system/login/login");
+			} else {
+
+				User userr = (User) session.getAttribute(Const.SESSION_USERROL);
+				if (null == userr) {
+					user = userService.getUserAndRoleById(user.getUSER_ID());
+
+					session.setAttribute(Const.SESSION_USERROL, user);
+				} else {
+					user = userr;
+				}
+				Role role = user.getRole();
+				String roleRights = role != null ? role.getRIGHTS() : "";
+				// 避免每次拦截用户操作时查询数据库，以下将用户所属角色权限、用户权限限都存入session
+				session.setAttribute(Const.SESSION_ROLE_RIGHTS, roleRights); // 将角色权限存入session
+				session.setAttribute(Const.SESSION_USERNAME, user.getUSERNAME()); // 放入用户名
+
+				List<Menu> allmenuList = new ArrayList<Menu>();
+
+				if (null == session.getAttribute(Const.SESSION_allmenuList)) {
+					allmenuList = menuService.listAllMenu();
+					if (Tools.notEmpty(roleRights)) {
+						for (Menu menu : allmenuList) {
+							menu.setHasMenu(RightsHelper.testRights(roleRights, menu.getMENU_ID()));
+							if (menu.isHasMenu()) {
+								List<Menu> subMenuList = menu.getSubMenu();
+								for (Menu sub : subMenuList) {
+									sub.setHasMenu(RightsHelper.testRights(roleRights, sub.getMENU_ID()));
+								}
+							}
+						}
+					}
+					session.setAttribute(Const.SESSION_allmenuList, allmenuList); // 菜单权限放入session中
+				} else {
+					allmenuList = (List<Menu>) session.getAttribute(Const.SESSION_allmenuList);
+				}
+
+				mav.setViewName("system/main/main");
+				mav.addObject("user", user);
+				mav.addObject("menuList", allmenuList);
+			}
+		} catch (Exception e) {
+			mav.setViewName("system/login/login");
+			logger.error(e.getMessage(), e);
+		}
+
 		return mav;
 	}
 

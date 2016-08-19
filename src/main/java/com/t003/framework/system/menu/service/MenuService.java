@@ -14,8 +14,21 @@ public class MenuService {
 	@Autowired
 	DaoSupport dao;
 
+	public List<Menu> listAllMenu() throws Exception {
+		List<Menu> rl = this.listAllParentMenu();
+		for (Menu menu : rl) {
+			List<Menu> subList = this.listSubMenuByParentId(menu.getMENU_ID());
+			menu.setSubMenu(subList);
+		}
+		return rl;
+	}
+
 	public List<Menu> listAllParentMenu() throws Exception {
 		return (List<Menu>) dao.findForList("MenuMapper.listAllParentMenu", null);
+	}
+
+	public List<Menu> listSubMenuByParentId(String parentId) throws Exception {
+		return (List<Menu>) dao.findForList("MenuMapper.listSubMenuByParentId", parentId);
 	}
 
 }

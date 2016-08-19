@@ -25,6 +25,11 @@
 		<result column="target" property="target"></result>
 	</resultMap>
 	
+	<select id="listMenuByUserRole" resultMap="menuResultMap">
+	    select * from SYS_MENU
+	   	
+	</select>
+	
 	<select id="listAllParentMenu" resultMap="menuResultMap">
 		select * from SYS_MENU 
 		where PARENT_ID = '0' order by MENU_ORDER 
