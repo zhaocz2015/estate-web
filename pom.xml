@@ -497,13 +497,32 @@
 			<scope>system</scope>
 			<systemPath>${project.basedir}/src/main/webapp/WEB-INF/lib/com.springsource.org.aspectj.weaver-1.6.8.RELEASE.jar</systemPath>
 		</dependency>
+		<!-- weaver-1.6.8.RELEASE.jar -->
 		<dependency>
-			<groupId>com.github.pagehelper</groupId>
-			<artifactId>pagehelper</artifactId>
-			<version>4.1.6</version>
+			<groupId>com.github.jsqlparser</groupId>
+			<artifactId>jsqlparser</artifactId>
+			<version>0.9.5</version>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/src/main/webapp/WEB-INF/lib/jsqlparser-0.9.5.jar</systemPath>
+		</dependency>
+		<dependency>
+		    <groupId>com.github.pagehelper</groupId>
+		    <artifactId>pagehelper</artifactId>
+		    <version>4.1.6</version>
+		    <scope>system</scope>
+			<systemPath>${project.basedir}/src/main/webapp/WEB-INF/lib/pagehelper-4.1.6.jar</systemPath>
 		</dependency>
 	</dependencies>
 	<build>
 		<finalName>estate-web</finalName>
 	</build>
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>com.github.pagehelper</groupId>
+				<artifactId>pagehelper</artifactId>
+				<version>4.1.6</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
 </project>
