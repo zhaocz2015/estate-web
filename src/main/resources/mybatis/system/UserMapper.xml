@@ -68,4 +68,24 @@
 		where USER_ID=#{USER_ID}
 	</update>
 	
+	<!-- 用户列表(用户组) -->
+	<select id="userListPage" parameterType="java.util.Map" resultType="User" useCache="false">
+		select  u.USER_ID,
+				u.USERNAME,
+				u.PASSWORD,
+				u.LAST_LOGIN,
+				u.NAME,
+				u.IP,
+				u.EMAIL,
+				u.NUMBER,
+				u.PHONE,
+				r.ROLE_ID,
+				r.ROLE_NAME
+		from SYS_USER u, SYS_ROLE r 
+		where u.ROLE_ID = r.ROLE_ID 
+		and u.USERNAME != 'admin'
+		and (r.ROLE_ID != '7' and r.PARENT_ID != '7')
+		order by u.LAST_LOGIN desc
+	</select>
+	
 </mapper>

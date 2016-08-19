@@ -2,10 +2,12 @@ package com.t003.framework.system.user.service;
 
 import java.util.Map;
 
+import org.apache.ibatis.session.RowBounds;
 import org.apache.shiro.crypto.hash.SimpleHash;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.github.pagehelper.Page;
 import com.t003.framework.base.dao.DaoSupport;
 import com.t003.framework.system.user.entity.User;
 
@@ -27,6 +29,10 @@ public class UserService {
 	 */
 	public User getUserAndRoleById(String USER_ID) throws Exception {
 		return (User) dao.findForObject("UserMapper.getUserAndRoleById", USER_ID);
+	}
+
+	public Page<User> getUsersByPage() throws Exception {
+		return (Page<User>) dao.findForList("UserMapper.userListPage", null, new RowBounds(1, 10));
 	}
 
 }

@@ -111,6 +111,11 @@ public class LoginController extends BaseController {
 					allmenuList = (List<Menu>) session.getAttribute(Const.SESSION_allmenuList);
 				}
 
+				// if (null == session.getAttribute(Const.SESSION_QX)) {
+				// session.setAttribute(Const.SESSION_QX, this.getUQX(session));
+				// // 按钮权限放到session中
+				// }
+
 				mav.setViewName("system/main/main");
 				mav.addObject("user", user);
 				mav.addObject("menuList", allmenuList);
