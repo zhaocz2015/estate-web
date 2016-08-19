@@ -34,7 +34,7 @@ public class LoginController {
 
 	@RequestMapping("/login_toLogin")
 	public ModelAndView toLogin() {
-		return new ModelAndView("system/login/login");
+		return new ModelAndView("system/login/login2");
 	}
 
 	@RequestMapping("login_login")
