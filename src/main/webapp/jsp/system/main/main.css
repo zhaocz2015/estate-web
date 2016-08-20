@@ -32,3 +32,6 @@ ul.subMenu>li>a:hover{
     font-weight: bold;
 	color:#0E2D5F;
 }
+.panel-body {
+	overflow:hidden;
+}

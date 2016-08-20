@@ -78,6 +78,8 @@ function viewWin() {
 	showWin({
 		winID: "firWin",
 		title : "详情窗口",
+		width: 800,
+		height: 300,
 		href : urls.form,
 		buttons : [ {
 			text : "打开二次元",
@@ -129,6 +131,8 @@ function viewWin() {
 function addWin() {
 	showWin({
 		title : "新增窗口",
+		width: 800,
+		height: 400,
 		href : urls.form,
 		buttons : [ {
 			text : "确定",
