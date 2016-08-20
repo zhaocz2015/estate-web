@@ -11,6 +11,9 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.github.pagehelper.Page;
+import com.t003.framework.base.data.PageResult;
+
 @Repository("daoSupport")
 public class DaoSupport implements DAO {
 
@@ -129,6 +132,10 @@ public class DaoSupport implements DAO {
 
 	public Object findForList(String str, Object obj, RowBounds rbs) throws Exception {
 		return sqlSessionTemplate.selectList(str, obj, rbs);
+	}
+
+	public PageResult findForPage(String str, Object obj, RowBounds rbs) throws Exception {
+		return new PageResult((Page) this.findForList(str, obj, rbs));
 	}
 
 	public Object findForMap(String str, Object obj, String key, String value) throws Exception {

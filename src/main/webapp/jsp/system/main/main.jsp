@@ -54,16 +54,16 @@
 						<ul class="subMenu">
 							<c:forEach items="${menu.subMenu}" var="sub">
 								<c:if test="${sub.hasMenu}">
-								<c:choose>
-									<c:when test="${not empty sub.MENU_URL}">
-										<li id="z${sub.MENU_ID }">
-											<a target="mainFrame"  onclick="openMenuTab('z${sub.MENU_ID }', '${sub.MENU_NAME}','${sub.MENU_URL }')">${sub.MENU_NAME }</a>
-										</li>
-									</c:when>
-									<c:otherwise>
-										<li><a href="javascript:void(0);">${sub.MENU_NAME}</a></li>
-									</c:otherwise>
-								</c:choose>
+									<c:choose>
+										<c:when test="${not empty sub.MENU_URL}">
+											<li id="z${sub.MENU_ID }">
+												<a target="mainFrame"  onclick="openMenuTab('z${sub.MENU_ID }', '${sub.MENU_NAME}','${sub.MENU_URL }')">${sub.MENU_NAME }</a>
+											</li>
+										</c:when>
+										<c:otherwise>
+											<li><a href="javascript:void(0);">${sub.MENU_NAME}</a></li>
+										</c:otherwise>
+									</c:choose>
 								</c:if>
 							</c:forEach>
 						</ul>

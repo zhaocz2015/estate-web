@@ -2,16 +2,23 @@ package com.t003.framework.base.data;
 
 import java.util.List;
 
+import com.github.pagehelper.Page;
+
 public class PageResult {
 
-	private int total;
+	private long total;
 	private List rows;
 
-	public int getTotal() {
+	public PageResult(Page page) {
+		rows = page.getResult();
+		total = page.getTotal();
+	}
+
+	public long getTotal() {
 		return total;
 	}
 
-	public void setTotal(int total) {
+	public void setTotal(long total) {
 		this.total = total;
 	}
 
