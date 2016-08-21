@@ -64,6 +64,25 @@ function JSONLength(jsonObj){
 	return size;
 }
 
+/**
+ * 工具栏折叠隐藏查询面板
+ * @param obj
+ */
+function toggleTb(obj){
+	if($(obj).attr("iconCls") == "icon-expand"){
+		$(obj).attr("iconCls", "icon-collapse").linkbutton({iconCls: "icon-collapse"});
+		$(obj).parent("div").next().hide();
+//		$(obj).parents("div.datagrid-toolbar").find("div.easyui-panel").panel("close");
+	}else if($(obj).attr("iconCls") == "icon-collapse"){
+		$(obj).attr("iconCls", "icon-expand").linkbutton({iconCls: "icon-expand"});
+		$(obj).parent("div").next().show();
+//		$(obj).parents("div.datagrid-toolbar").find("div.easyui-panel").panel("open");
+	}
+	
+	// 调整datagrid
+	$(obj).parents("div.datagrid-toolbar").next().children("table.datagrid-f").datagrid("resize");
+}
+
 Date.prototype.Format = function (fmt) { 
     var o = {
         "M+": this.getMonth() + 1, //月份 

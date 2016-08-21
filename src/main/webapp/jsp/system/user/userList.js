@@ -227,3 +227,7 @@ function submitForm(mode){
 		}
 	});
 }
+
+function doQuery(){
+	dg.datagrid("reload");
+}
