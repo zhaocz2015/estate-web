@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8" />
 <title>物业管理系统</title>
-<%@ include file="/static/jsp/top.jsp"%>
+<%@ include file="/static/jsp/common.jsp"%>
 </head>
 <body>
 
@@ -88,7 +88,7 @@
 					if (rsMsg.success) {
 						window.location.href = "main";
 					} else {
-						$.messager.alert("登录提示", rsMsg.title, "warning");
+						$.messager.alert("登录提示", rsMsg.info, "warning");
 					}
 				}
 			});

@@ -11,4 +11,5 @@
 <script type="text/javascript" src="static/easyui/1.5/jquery.min.js"></script>
 <script type="text/javascript" src="static/easyui/1.5/jquery.easyui.min.js"></script>
 <script type="text/javascript" src="static/easyui/1.5/locale/easyui-lang-zh_CN.js"></script>
+<script type="text/javascript" src="static/js/easyui.ext.js"></script>
 <script type="text/javascript" src="static/js/util.js"></script>

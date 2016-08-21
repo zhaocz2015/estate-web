@@ -10,7 +10,16 @@ $(function() {
 
 var urls = {
 	form : "user/userForm",
-	list : "user/userList"
+	list : "user/userList",
+	add: "user/addUser",
+	edit: "user/editUser",
+	rmv: "user/rmvUser",
+};
+
+var modes = {
+	add: "add",
+	edit: "edit",
+	rmv: "rmv"
 };
 
 var dg, tb;
@@ -138,7 +147,7 @@ function addWin() {
 			text : "确定",
 			iconCls : "icon-ok",
 			handler : function() {
-				parent.$.messager.alert("信息", "提示信息", "info");
+				submitForm(modes.add);
 			}
 		}, {
 			text : "取消",
@@ -148,7 +157,8 @@ function addWin() {
 			}
 		} ],
 		onLoad : function() {
-
+			// 生成用户编号
+			$win.find("input[textboxname='NUMBER']").textbox("setValue", new Date().Format("yyyyMMddhhmmss"));
 		}
 	});
 }
@@ -169,7 +179,7 @@ function editWin() {
 			text : "确定",
 			iconCls : "icon-ok",
 			handler : function() {
-				showInfo("确定");
+				submitForm(modes.edit)
 			}
 		}, {
 			text : "取消",
@@ -190,4 +200,30 @@ function rmvRecord() {
 		showAlert("请选择一条记录");
 		return;
 	}
+}
+
+function submitForm(mode){
+	showProgress();
+	
+	form.form("submit", {
+		url: urls[mode],
+		onSubmit: function(){
+			var isValid = $(this).form("validate");
+			if(!isValid){
+				closeProgress();
+			}
+			return isValid;
+		},
+		success: function(data){
+			closeProgress();
+			
+			var rsMsg = JSON.parse(data);
+			if(rsMsg.success){
+				showInfo(rsMsg.info);
+				dg.datagrid("reload");
+			}else{
+				showAlert(rsMsg.info);
+			}
+		}
+	});
 }

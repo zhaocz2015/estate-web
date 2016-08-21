@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8" />
 <title>物业管理系统</title>
-<%@ include file="/static/jsp/top.jsp"%>
+<%@ include file="/static/jsp/common.jsp"%>
 <script type="text/javascript" src="jsp/system/user/userList.js"></script>
 </head>
 <body class="easyui-layout">

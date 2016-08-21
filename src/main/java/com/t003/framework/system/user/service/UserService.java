@@ -37,4 +37,8 @@ public class UserService {
 		return dao.findForPage("UserMapper.userListPage", null, new RowBounds(pageIndex, pageSize));
 	}
 
+	public void addUser(Map<String, String> params) throws Exception {
+		dao.save("UserXMapper.saveUser", params);
+	}
+
 }

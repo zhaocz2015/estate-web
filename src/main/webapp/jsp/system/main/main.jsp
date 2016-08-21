@@ -6,7 +6,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>首页</title>
-<%@ include file="/static/jsp/top.jsp"%>
+<%@ include file="/static/jsp/common.jsp"%>
 <link rel="stylesheet" type="text/css" href="jsp/system/main/main.css">
 <script type="text/javascript" src="jsp/system/main/main.js"></script>
 </head>

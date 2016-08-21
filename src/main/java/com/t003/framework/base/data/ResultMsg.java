@@ -24,11 +24,15 @@ public class ResultMsg {
 	/*
 	 * 消息标题
 	 */
-	String title;
+	String info;
 	/*
 	 * 消息体
 	 */
 	HashMap<String, Object> body;
+
+	public ResultMsg() {
+
+	}
 
 	/**
 	 * 构造函数
@@ -38,9 +42,9 @@ public class ResultMsg {
 	 * @param title
 	 *            标题
 	 */
-	public ResultMsg(boolean succ, String title) {
+	public ResultMsg(boolean succ, String info) {
 		this.success = succ;
-		this.title = title;
+		this.info = info;
 	}
 
 	/**
@@ -55,7 +59,7 @@ public class ResultMsg {
 	 */
 	public ResultMsg(boolean succ, String title, HashMap<String, Object> body) {
 		this.success = succ;
-		this.title = title;
+		this.info = title;
 		this.body = body;
 	}
 
@@ -68,11 +72,11 @@ public class ResultMsg {
 	}
 
 	public String getTitle() {
-		return title;
+		return info;
 	}
 
 	public void setTitle(String title) {
-		this.title = title;
+		this.info = title;
 	}
 
 	public HashMap<String, Object> getBody() {
