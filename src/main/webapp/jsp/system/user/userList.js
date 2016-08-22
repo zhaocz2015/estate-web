@@ -85,54 +85,21 @@ function viewWin() {
 	}
 
 	showWin({
-		winID: "firWin",
 		title : "详情窗口",
 		width: 800,
-		height: 300,
+		height: 400,
 		href : urls.form,
 		buttons : [ {
-			text : "打开二次元",
-			iconCls : "icon-ok",
-			handler : function() {
-				showWin({
-					winID : "secWin",
-					title : "二次详情",
-					content : "<h1>二次详情</h1>",
-					buttons : [ {
-						text: "打开三次元",
-						iconCls: "icon-ok",
-						handler: function(){
-							showWin({
-								winID: "thrWin",
-								title: "三次元窗口",
-								content: "<h1>三次元</h1>",
-								buttons: [{
-									text: "关闭",
-									iconCls: "icon-cancel",
-									handler: function(){
-										$win["thrWin"].dialog("close");
-									}
-								}]
-							});
-						}
-					}, {
-						text : "关闭",
-						iconCls: "icon-cancel",
-						handler: function(){
-							$win["secWin"].dialog("close");
-						}
-					} ]
-				});
-			}
-		}, {
-			text : "取消",
+			text : "关闭",
 			iconCls : "icon-cancel",
 			handler : function() {
-				$win["firWin"].dialog("close");
+				$win.dialog("close");
 			}
 		} ],
 		onLoad : function() {
-
+			var userForm = $win.find("#userForm");
+			userForm.form("load", row);
+			userForm.find("input[]")
 		}
 	});
 }
@@ -173,8 +140,9 @@ function editWin() {
 
 	showWin({
 		title : "编辑窗口",
-		// href: "user/userForm",
-		content : "<table class='list'><tr><th>用户名</th><td><input class='easyui-textbox' style='width:120px;'/></td><tr></table>",
+		width: 800,
+		height: 400,
+		href: urls.form,
 		buttons : [ {
 			text : "确定",
 			iconCls : "icon-ok",
@@ -189,7 +157,8 @@ function editWin() {
 			}
 		} ],
 		onLoad : function() {
-
+			$win.find("input[textboxname='PASSWORD']").passwordbox("clear");
+			$win.find("#userForm").form("load", row);
 		}
 	});
 }
@@ -230,4 +199,8 @@ function submitForm(mode){
 
 function doQuery(){
 	dg.datagrid("reload");
+}
+
+function doClear(){
+	dg.datagrid("load", {});
 }

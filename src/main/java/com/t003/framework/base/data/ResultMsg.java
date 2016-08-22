@@ -39,7 +39,7 @@ public class ResultMsg {
 	 * 
 	 * @param succ
 	 *            是否成功
-	 * @param title
+	 * @param info
 	 *            标题
 	 */
 	public ResultMsg(boolean succ, String info) {
@@ -52,14 +52,14 @@ public class ResultMsg {
 	 * 
 	 * @param succ
 	 *            是否成功
-	 * @param title
+	 * @param info
 	 *            标题
 	 * @param body
 	 *            可选消息体
 	 */
-	public ResultMsg(boolean succ, String title, HashMap<String, Object> body) {
+	public ResultMsg(boolean succ, String info, HashMap<String, Object> body) {
 		this.success = succ;
-		this.info = title;
+		this.info = info;
 		this.body = body;
 	}
 
@@ -71,12 +71,12 @@ public class ResultMsg {
 		this.success = success;
 	}
 
-	public String getTitle() {
+	public String getInfo() {
 		return info;
 	}
 
-	public void setTitle(String title) {
-		this.info = title;
+	public void setInfo(String info) {
+		this.info = info;
 	}
 
 	public HashMap<String, Object> getBody() {

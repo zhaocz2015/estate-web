@@ -67,9 +67,7 @@
 		function login() {
 			$("#login-form").form("enableValidation");
 
-			$.messager.progress({
-				text : "正在登录"
-			});
+			$.messager.progress({text:"正在登录"}); 
 
 			$("#login-form").form("submit", {
 				url : "login_login",
@@ -82,12 +80,11 @@
 					return isValid;
 				},
 				success : function(data) {
-					$.messager.progress("close");
-
 					var rsMsg = JSON.parse(data);
 					if (rsMsg.success) {
 						window.location.href = "main";
 					} else {
+						$.messager.progress("close");
 						$.messager.alert("登录提示", rsMsg.info, "warning");
 					}
 				}

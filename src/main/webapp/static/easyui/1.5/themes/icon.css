@@ -95,6 +95,9 @@
 	background:url('icons/large_chart.png') no-repeat center center;
 }
 
+.icon-view{
+	background:url('icons/view.png') no-repeat center center;
+}
 .icon-collapse{
 	background:url('icons/collapse.png') no-repeat center center;
 }

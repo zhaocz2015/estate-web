@@ -25,7 +25,7 @@
 			</td>
 			<th>用户名</th>
 			<td>
-				<input name="USER_NAME" class="easyui-textbox" required="true" missingMessage="请输入用户名" prompt="请输入用户名" style="width:160px;"/>
+				<input name="USERNAME" class="easyui-textbox" required="true" missingMessage="请输入用户名" prompt="请输入用户名" style="width:160px;"/>
 			</td>
 		</tr>
 		<tr>

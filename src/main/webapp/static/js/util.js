@@ -46,8 +46,10 @@ function showInfo(info, fn){
 	parent.$.messager.alert("提示", info, "info", fn);
 }
 
-function showProgress(opts){
-	parent.$.messager.progress(opts);
+function showProgress(text){
+	parent.$.messager.progress({
+		text: text ? text : ""
+	});
 }
 
 function closePrgress(){
@@ -71,11 +73,11 @@ function JSONLength(jsonObj){
 function toggleTb(obj){
 	if($(obj).attr("iconCls") == "icon-expand"){
 		$(obj).attr("iconCls", "icon-collapse").linkbutton({iconCls: "icon-collapse"});
-		$(obj).parent("div").next().hide();
+		$(obj).parent("div").next().show();
 //		$(obj).parents("div.datagrid-toolbar").find("div.easyui-panel").panel("close");
 	}else if($(obj).attr("iconCls") == "icon-collapse"){
 		$(obj).attr("iconCls", "icon-expand").linkbutton({iconCls: "icon-expand"});
-		$(obj).parent("div").next().show();
+		$(obj).parent("div").next().hide();
 //		$(obj).parents("div.datagrid-toolbar").find("div.easyui-panel").panel("open");
 	}
 	

@@ -11,9 +11,9 @@
 	<div region="center" title="系统用户列表">
 		<div id="tb" class="tb-css">
 			<div class="tb-css-btn">
-				<a class="easyui-linkbutton" iconCls="icon-expand" plain="true" onclick="toggleTb(this)"></a>
+				<a class="easyui-linkbutton" iconCls="icon-collapse" plain="true" onclick="toggleTb(this)"></a>
 				<span class="xian"></span>
-				<a class="easyui-linkbutton" iconCls="icon-ok" plain="true" onclick="viewWin()">详情</a>
+				<a class="easyui-linkbutton" iconCls="icon-view" plain="true" onclick="viewWin()">详情</a>
 				<span class="xian"></span>
 				<a class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="addWin()">新增</a>
 				<span class="xian"></span>
@@ -26,7 +26,7 @@
 				用户编码：<input class="easyui-textbox" id="usercode" />
 				用户名称：<input class="easyui-textbox" id="username" />
 				<a class="easyui-linkbutton" iconCls="icon-search" plain="false" onClick="doQuery()">查询</a>
-				<a href="#" class="easyui-linkbutton" iconCls="icon-reload" plain="false" onClick="clearUsers()">清空</a>
+				<a class="easyui-linkbutton" iconCls="icon-reload" plain="false" onClick="doClear()">清空</a>
 			</div>
 		</div>
 		<table id="dg"></table>
