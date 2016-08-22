@@ -1,12 +1,33 @@
 package com.t003.framework.base.data;
 
+import java.util.List;
+
 public class TreeNode {
 
 	private String id;
 	private String text;
 	private String iconCls;
 	private boolean checked;
-	private TREE_NODE_STATE state;
+	private TREE_NODE_STATE state = TREE_NODE_STATE.open;
+
+	private String pid;
+	private List<TreeNode> children;
+
+	public String getPid() {
+		return pid;
+	}
+
+	public void setPid(String pid) {
+		this.pid = pid;
+	}
+
+	public List<TreeNode> getChildren() {
+		return children;
+	}
+
+	public void setChildren(List<TreeNode> children) {
+		this.children = children;
+	}
 
 	public String getId() {
 		return id;

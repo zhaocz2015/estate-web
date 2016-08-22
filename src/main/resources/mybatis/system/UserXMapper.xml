@@ -5,6 +5,74 @@
 
 	<cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>  
 	
+	<!-- 通过USERNAME获取数据 -->
+	<select id="findByUserName" parameterType="java.lang.String" resultType="User" useCache="false">
+		select 
+			USER_ID,
+			USERNAME,
+			PASSWORD,
+			NAME,
+			RIGHTS,
+			ROLE_ID,
+			LAST_LOGIN,
+			IP,
+			STATUS,
+			BZ,
+			SKIN,
+			EMAIL,
+			NUMBER,
+			PHONE
+		from 
+			SYS_USER
+		where 
+			USERNAME = #{USERNAME}
+	</select>
+	
+	<!-- 存入IP -->
+	<update id="saveIP" parameterType="java.util.Map" flushCache="false">
+		update SYS_USER 
+		set 
+			IP = #{IP}
+		where 
+			USERNAME = #{USERNAME}
+	</update>
+	
+	<!-- 更新登录时间 -->
+	<update id="updateLastLogin" parameterType="java.util.Map" flushCache="false">
+		update SYS_USER set 
+		LAST_LOGIN = #{LAST_LOGIN} 
+		where USER_ID = #{USER_ID}
+	</update>
+	
+	
+	<!-- 用户列表(用户组) -->
+	<select id="userListPage" parameterType="java.util.Map" resultType="java.util.Map" useCache="false">
+		select  u.USER_ID,
+				u.USERNAME,
+				u.PASSWORD,
+				u.LAST_LOGIN,
+				u.NAME,
+				u.IP,
+				u.EMAIL,
+				u.NUMBER,
+				u.BZ,
+				u.PHONE,
+				r.ROLE_ID,
+				r.ROLE_NAME
+		from SYS_USER u, SYS_ROLE r 
+		where u.ROLE_ID = r.ROLE_ID 
+		and u.USERNAME != 'admin'
+		and (r.ROLE_ID != '7' and r.PARENT_ID != '7')
+		<if test="USERNAME != null and USERNAME != ''"><!-- 关键词检索 -->
+			and u.USERNAME LIKE CONCAT(CONCAT('%', #{USERNAME}),'%')
+		</if>
+		<if test="NAME != null and NAME != ''"><!-- 角色检索 -->
+			and u.NAME LIKE CONCAT(CONCAT('%', #{NAME}),'%')
+		</if>
+		order by u.LAST_LOGIN desc
+	</select>
+	
+	
 	<!-- 新增用户 -->
 	<insert id="saveUser" parameterType="java.util.Map" flushCache="false">
 		insert into SYS_USER (
@@ -40,5 +108,39 @@
 		)
 	</insert>
 
+	<!-- 修改 -->
+	<update id="updateUser" parameterType="Map" flushCache="false">
+		update  SYS_USER
+			set USERNAME				= #{USERNAME},
+				NAME 					= #{NAME},
+				ROLE_ID 				= #{ROLE_ID},
+				BZ						= #{BZ},
+				EMAIL					= #{EMAIL},
+				NUMBER					= #{NUMBER},
+				PHONE					= #{PHONE}
+			<if test="PASSWORD != null and PASSWORD != ''">
+				,PASSWORD				= #{PASSWORD}
+			</if>
+			where 
+				USER_ID = #{USER_ID}
+	</update>
+	
+	
+	<!-- 删除用户 -->
+	<delete id="deleteUser" parameterType="String" flushCache="false">
+		delete from SYS_USER
+		where 
+			USER_ID = #{_parameter}
+	</delete>
+	
+	
+	<!-- 修改 -->
+	<update id="resetPwd" parameterType="Map" flushCache="false">
+		update  SYS_USER
+			set PASSWORD = #{PASSWORD}
+			where 
+				USER_ID = #{USER_ID}
+	</update>
+	
 </mapper>
     

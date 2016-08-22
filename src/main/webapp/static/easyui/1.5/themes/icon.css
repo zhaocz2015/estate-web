@@ -104,3 +104,9 @@
 .icon-expand{
 	background:url('icons/expand.png') no-repeat center center;
 }
+.icon-label{
+	background:url('icons/label.png') no-repeat center center;
+}
+.icon-lock{
+	background:url('icons/lock.png') no-repeat center center;
+}

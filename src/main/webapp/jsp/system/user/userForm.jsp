@@ -15,7 +15,8 @@
 		<tr>
 			<th>选择职位：</th>
 			<td colspan="3">
-				<input name="ROLE_ID" class="easyui-combobox" url="/" required="true" missingMessage="请选择职位" prompt="请选择职位" panelHeight="auto" style="width:280px;"/>
+				<input name="ROLE_ID" class="easyui-combotree" url="role/roleTree" required="true" missingMessage="请选择职位"  prompt="请选择职位" panelHeight="auto" style="width:280px;"/>
+				<input name="USER_ID" type="hidden"/>
 			</td>
 		</tr>
 		<tr>
@@ -28,14 +29,14 @@
 				<input name="USERNAME" class="easyui-textbox" required="true" missingMessage="请输入用户名" prompt="请输入用户名" style="width:160px;"/>
 			</td>
 		</tr>
-		<tr>
+		<tr class="pwd-box">
 			<th>输入密码</th>
 			<td>
 				<input name="PASSWORD" class="easyui-passwordbox" required="true" missingMessage="请输入密码" prompt="请输入密码" style="width:160px;"/>
 			</td>
 			<th>确认密码</th>
 			<td>
-				<input class="easyui-passwordbox" required="true" missingMessage="请确认密码" prompt="请确认密码" style="width:160px;"/>
+				<input name="CONFIRM_PASSWORD" class="easyui-passwordbox" required="true" validType="eqPwd['#PWD']" missingMessage="请确认密码" prompt="请确认密码" style="width:160px;"/>
 			</td>
 		</tr>
 		<tr>

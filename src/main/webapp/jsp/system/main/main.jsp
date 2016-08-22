@@ -16,7 +16,7 @@
 		<div style='background: url("https://dn-coding-net-production-static.qbox.me/d58141c9-9a0c-40b0-a408-5935fd70670f.jpg") 100 40 / cover no-repeat fixed;'>
 			
 		</div>
-		<div class="easyui-panel" style="padding:5px;">
+		<div class="easyui-panel" style="padding:5px;background-color:#fafafa;">
 			<c:forEach items="${menuList}" var="menu">
 				<c:if test="${menu.hasMenu}">
 		        	<a href="#" class="easyui-menubutton" menu='#mm${menu.MENU_ID}' style="font-weight:bold;font-size:24px;">${menu.MENU_NAME}</a>

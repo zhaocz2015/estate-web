@@ -15,6 +15,7 @@ import com.t003.framework.base.controller.BaseController;
 import com.t003.framework.base.data.PageResult;
 import com.t003.framework.base.data.ResultMsg;
 import com.t003.framework.base.util.AppUtil;
+import com.t003.framework.base.util.Jurisdiction;
 import com.t003.framework.system.user.service.UserService;
 
 @Controller
@@ -61,6 +62,67 @@ public class UserController extends BaseController {
 			params.put("PASSWORD", new SimpleHash("SHA-1", params.get("USERNAME"), params.get("PASSWORD")).toString());
 
 			userService.addUser(params);
+			rsMsg = new ResultMsg(true, "操作成功");
+		} catch (Exception e) {
+			rsMsg = new ResultMsg(false, "操作失败");
+			logger.error(e.getMessage(), e);
+		}
+		return rsMsg;
+	}
+
+	@RequestMapping("/editUser")
+	@ResponseBody
+	public ResultMsg editUser(HttpServletRequest request) {
+		ResultMsg rsMsg = null;
+		Map<String, String> params = AppUtil.getRequestParams(request);
+		try {
+
+			// if (pd.getString("PASSWORD") != null &&
+			// !"".equals(pd.getString("PASSWORD"))) {
+			// pd.put("PASSWORD", new SimpleHash("SHA-1",
+			// pd.getString("USERNAME"), pd.getString("PASSWORD")).toString());
+			// }
+			if (Jurisdiction.buttonJurisdiction("/user/userEntry", "edit")) {
+				userService.updateUser(params);
+				rsMsg = new ResultMsg(true, "操作成功");
+			} else {
+				rsMsg = new ResultMsg(false, "没有权限操作");
+			}
+
+		} catch (Exception e) {
+			rsMsg = new ResultMsg(false, "操作失败");
+			logger.error(e.getMessage(), e);
+		}
+		return rsMsg;
+	}
+
+	@RequestMapping("/rmvUser")
+	@ResponseBody
+	public ResultMsg rmvUser(String userID) {
+		ResultMsg rsMsg = null;
+		try {
+			if (Jurisdiction.buttonJurisdiction("/user/userEntry", "del")) {
+				userService.rmvUser(userID);
+				rsMsg = new ResultMsg(true, "操作成功");
+			} else {
+				rsMsg = new ResultMsg(false, "没有权限操作");
+			}
+		} catch (Exception e) {
+			rsMsg = new ResultMsg(false, "操作失败");
+			logger.error(e.getMessage(), e);
+		}
+		return rsMsg;
+	}
+
+	@RequestMapping("/resetPwd")
+	@ResponseBody
+	public ResultMsg resetPwd(HttpServletRequest request) {
+		ResultMsg rsMsg = null;
+		try {
+			Map params = AppUtil.getRequestParams(request);
+			params.put("PASSWORD", new SimpleHash("SHA-1", params.get("USERNAME"), params.get("PASSWORD")).toString());
+
+			userService.resetPwd(params);
 			rsMsg = new ResultMsg(true, "操作成功");
 		} catch (Exception e) {
 			rsMsg = new ResultMsg(false, "操作失败");

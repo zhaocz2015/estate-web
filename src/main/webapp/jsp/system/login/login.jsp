@@ -73,7 +73,6 @@
 				url : "login_login",
 				onSubmit : function() {
 					var isValid = $(this).form("validate");
-					var isValid = $(this).form("validate");
 					if (!isValid) {
 						$.messager.progress("close");
 					}

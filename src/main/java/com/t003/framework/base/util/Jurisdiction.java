@@ -30,44 +30,35 @@ public class Jurisdiction {
 		 * 根据按钮权限，授权按钮(当前点的菜单和角色中各按钮的权限匹对)
 		 */
 		// shiro管理的session
-		// Subject currentUser = SecurityUtils.getSubject();
-		// Session session = currentUser.getSession();
-		// List<Menu> menuList = (List)
-		// session.getAttribute(Const.SESSION_allmenuList); // 获取菜单列表
-		//
-		// for (int i = 0; i < menuList.size(); i++) {
-		// for (int j = 0; j < menuList.get(i).getSubMenu().size(); j++) {
-		// if
-		// (menuList.get(i).getSubMenu().get(j).getMENU_URL().split(".do")[0].equals(menuUrl.split(".do")[0]))
-		// {
-		// if (!menuList.get(i).getSubMenu().get(j).isHasMenu()) { // 判断有无此菜单权限
-		// return false;
-		// } else { // 按钮判断
-		// Map<String, String> map = (Map<String, String>)
-		// session.getAttribute(Const.SESSION_QX);// 按钮权限
-		// map.remove("add");
-		// map.remove("del");
-		// map.remove("edit");
-		// map.remove("cha");
-		// String MENU_ID = menuList.get(i).getSubMenu().get(j).getMENU_ID();
-		// String USERNAME =
-		// session.getAttribute(Const.SESSION_USERNAME).toString(); //
-		// 获取当前登录者loginname
-		// Boolean isAdmin = "admin".equals(USERNAME);
-		// map.put("add", (RightsHelper.testRights(map.get("adds"), MENU_ID)) ||
-		// isAdmin ? "1" : "0");
-		// map.put("del", RightsHelper.testRights(map.get("dels"), MENU_ID) ||
-		// isAdmin ? "1" : "0");
-		// map.put("edit", RightsHelper.testRights(map.get("edits"), MENU_ID) ||
-		// isAdmin ? "1" : "0");
-		// map.put("cha", RightsHelper.testRights(map.get("chas"), MENU_ID) ||
-		// isAdmin ? "1" : "0");
-		// session.removeAttribute(Const.SESSION_QX);
-		// session.setAttribute(Const.SESSION_QX, map); // 重新分配按钮权限
-		// }
-		// }
-		// }
-		// }
+		Subject currentUser = SecurityUtils.getSubject();
+		Session session = currentUser.getSession();
+		List<Menu> menuList = (List) session.getAttribute(Const.SESSION_allmenuList); // 获取菜单列表
+
+		for (int i = 0; i < menuList.size(); i++) {
+			for (int j = 0; j < menuList.get(i).getSubMenu().size(); j++) {
+				if (menuList.get(i).getSubMenu().get(j).getMENU_URL().split(".do")[0].equals(menuUrl.split(".do")[0])) {
+					if (!menuList.get(i).getSubMenu().get(j).isHasMenu()) { // 判断有无此菜单权限
+						return false;
+					} else { // 按钮判断
+						Map<String, String> map = (Map<String, String>) session.getAttribute(Const.SESSION_QX);// 按钮权限
+						map.remove("add");
+						map.remove("del");
+						map.remove("edit");
+						map.remove("cha");
+						String MENU_ID = menuList.get(i).getSubMenu().get(j).getMENU_ID();
+						String USERNAME = session.getAttribute(Const.SESSION_USERNAME).toString(); //
+						// 获取当前登录者loginname
+						Boolean isAdmin = "admin".equals(USERNAME);
+						map.put("add", (RightsHelper.testRights(map.get("adds"), MENU_ID)) || isAdmin ? "1" : "0");
+						map.put("del", RightsHelper.testRights(map.get("dels"), MENU_ID) || isAdmin ? "1" : "0");
+						map.put("edit", RightsHelper.testRights(map.get("edits"), MENU_ID) || isAdmin ? "1" : "0");
+						map.put("cha", RightsHelper.testRights(map.get("chas"), MENU_ID) || isAdmin ? "1" : "0");
+						session.removeAttribute(Const.SESSION_QX);
+						session.setAttribute(Const.SESSION_QX, map); // 重新分配按钮权限
+					}
+				}
+			}
+		}
 		return true;
 	}
 

@@ -20,11 +20,14 @@
 				<a class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editWin()">修改</a>
 				<span class="xian"></span>
 				<a class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="rmvRecord()">刪除</a>
+				<span class="xian"></span>
+				<a class="easyui-linkbutton" iconCls="icon-lock" plain="true" onclick="resetPwd()">重置密码</a>
 			</div>
 			<div class="tb-css-qry">
 				&nbsp;
-				用户编码：<input class="easyui-textbox" id="usercode" />
-				用户名称：<input class="easyui-textbox" id="username" />
+				用户名：<input class="easyui-textbox" id="USERNAME" />
+				&nbsp;
+				姓名：<input class="easyui-textbox" id="NAME" />
 				<a class="easyui-linkbutton" iconCls="icon-search" plain="false" onClick="doQuery()">查询</a>
 				<a class="easyui-linkbutton" iconCls="icon-reload" plain="false" onClick="doClear()">清空</a>
 			</div>

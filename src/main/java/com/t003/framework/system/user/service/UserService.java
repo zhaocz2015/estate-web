@@ -25,6 +25,27 @@ public class UserService {
 	}
 
 	/*
+	 * 通过loginname获取数据
+	 */
+	public User findByUserName(String username) throws Exception {
+		return (User) dao.findForObject("UserXMapper.findByUserName", username);
+	}
+
+	/*
+	 * 保存用户IP
+	 */
+	public void saveIP(Map params) throws Exception {
+		dao.update("UserXMapper.saveIP", params);
+	}
+
+	/*
+	 * 跟新登录时间
+	 */
+	public void updateLastLogin(Map params) throws Exception {
+		dao.update("UserXMapper.updateLastLogin", params);
+	}
+
+	/*
 	 * 通过id获取数据
 	 */
 	public User getUserAndRoleById(String USER_ID) throws Exception {
@@ -34,11 +55,23 @@ public class UserService {
 	public PageResult getUsersForPage(Map<String, String> params) throws Exception {
 		int pageIndex = Integer.valueOf(params.get("page"));
 		int pageSize = Integer.valueOf(params.get("rows"));
-		return dao.findForPage("UserMapper.userListPage", null, new RowBounds(pageIndex, pageSize));
+		return dao.findForPage("UserXMapper.userListPage", params, new RowBounds(pageIndex, pageSize));
 	}
 
 	public void addUser(Map<String, String> params) throws Exception {
 		dao.save("UserXMapper.saveUser", params);
+	}
+
+	public void updateUser(Map<String, String> params) throws Exception {
+		dao.update("UserXMapper.updateUser", params);
+	}
+
+	public void rmvUser(String userID) throws Exception {
+		dao.delete("UserXMapper.deleteUser", userID);
+	}
+
+	public void resetPwd(Map params) throws Exception {
+		dao.update("UserXMapper.resetPwd", params);
 	}
 
 }

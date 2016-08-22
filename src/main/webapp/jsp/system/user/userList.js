@@ -14,6 +14,7 @@ var urls = {
 	add: "user/addUser",
 	edit: "user/editUser",
 	rmv: "user/rmvUser",
+	reset: "user/resetPwd"
 };
 
 var modes = {
@@ -22,7 +23,7 @@ var modes = {
 	rmv: "rmv"
 };
 
-var dg, tb;
+var dg, tb, form;
 function initVars() {
 	tb = $("#tb");
 	dg = $("#dg");
@@ -48,7 +49,7 @@ function initDataGrid() {
 		}, {
 			title : "编号",
 			field : "NUMBER",
-			width : 100,
+			width : 120,
 		}, {
 			title : "用户名",
 			field : "USERNAME",
@@ -87,7 +88,7 @@ function viewWin() {
 	showWin({
 		title : "详情窗口",
 		width: 800,
-		height: 400,
+		height: 360,
 		href : urls.form,
 		buttons : [ {
 			text : "关闭",
@@ -97,9 +98,10 @@ function viewWin() {
 			}
 		} ],
 		onLoad : function() {
-			var userForm = $win.find("#userForm");
-			userForm.form("load", row);
-			userForm.find("input[]")
+			form = $win.find("#userForm");
+			form.find("tr.pwd-box").hide(); //隐藏密码
+			form.form("load", row);
+			form.find("input[class^='easyui']").textbox("readonly");//全部只读
 		}
 	});
 }
@@ -124,11 +126,13 @@ function addWin() {
 			}
 		} ],
 		onLoad : function() {
-			// 生成用户编号
-			$win.find("input[textboxname='NUMBER']").textbox("setValue", new Date().Format("yyyyMMddhhmmss"));
+			form = $win.find("#userForm");
+			form.find("input[textboxname='NUMBER']").textbox("setValue", new Date().Format("yyyyMMddhhmmss"));// 生成用户编号
 		}
 	});
 }
+
+
 
 function editWin() {
 
@@ -157,8 +161,11 @@ function editWin() {
 			}
 		} ],
 		onLoad : function() {
-			$win.find("input[textboxname='PASSWORD']").passwordbox("clear");
-			$win.find("#userForm").form("load", row);
+			form = $win.find("#userForm");
+			// 隐藏并取消密码框的校验
+			form.find("input[textboxname*='PASSWORD']").passwordbox("disableValidation");
+			form.find("tr.pwd-box").hide();
+			form.form("load", row);
 		}
 	});
 }
@@ -169,15 +176,54 @@ function rmvRecord() {
 		showAlert("请选择一条记录");
 		return;
 	}
+	
+	showConfirm("删除提示", "是否删除用户【" + row.USERNAME + "】的数据记录？", function(r){
+		if(r){
+			showProgress("正在请求");
+			$.post(urls.rmv, {userID: row.USER_ID}, function(rsMsg){
+				closeProgress();
+				
+				if(rsMsg.success){
+					dg.datagrid("reload");
+//					showInfo(rsMsg.info);
+				}else{
+					showAlert(rsMsg.info);
+				}
+			}, "JSON");
+		}
+	});
+}
+
+function resetPwd(){
+	var row = dg.datagrid("getSelected");
+	if(!row){
+		showAlert("请选择一条记录");
+		return;
+	}
+	
+	showPrompt("重置密码", "请输入用户【" + row.USERNAME + "】的重置密码", function(pwd){
+		if(pwd){
+			showProgress("正在请求");
+			$.post(urls.reset, {USER_ID: row.USER_ID, USERNAME: row.USERNAME, PASSWORD: pwd}, function(rsMsg){
+				closeProgress();
+				
+				if(rsMsg.success){
+					dg.datagrid("reload");
+					showInfo(rsMsg.info);
+				}else{
+					showAlert(rsMsg.info);
+				}
+			}, "JSON");
+		}
+	});
 }
 
 function submitForm(mode){
-	showProgress();
-	
+	showProgress("正在提交");
 	form.form("submit", {
 		url: urls[mode],
 		onSubmit: function(){
-			var isValid = $(this).form("validate");
+			var isValid = form.form("validate");
 			if(!isValid){
 				closeProgress();
 			}
@@ -188,8 +234,9 @@ function submitForm(mode){
 			
 			var rsMsg = JSON.parse(data);
 			if(rsMsg.success){
+				$win.dialog("close"); //关闭窗口
+				dg.datagrid("reload");//刷新列表
 				showInfo(rsMsg.info);
-				dg.datagrid("reload");
 			}else{
 				showAlert(rsMsg.info);
 			}
@@ -198,9 +245,14 @@ function submitForm(mode){
 }
 
 function doQuery(){
-	dg.datagrid("reload");
+	dg.datagrid("load",{
+		USERNAME: $("#USERNAME").textbox("getValue"),
+		NAME: $("#NAME").textbox("getValue")
+	});
 }
 
 function doClear(){
+	$("#USERNAME").textbox("clear");
+	$("#NAME").textbox("clear");
 	dg.datagrid("load", {});
 }

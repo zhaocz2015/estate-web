@@ -52,8 +52,16 @@ function showProgress(text){
 	});
 }
 
-function closePrgress(){
+function closeProgress(){
 	parent.$.messager.progress("close");
+}
+
+function showConfirm(title, msg, fn){
+	parent.$.messager.confirm(title, msg, fn);
+}
+
+function showPrompt(title, msg, fn){
+	parent.$.messager.prompt(title, msg, fn);
 }
 
 function JSONLength(jsonObj){
