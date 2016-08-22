@@ -32,11 +32,11 @@
 		<tr class="pwd-box">
 			<th>输入密码</th>
 			<td>
-				<input name="PASSWORD" class="easyui-passwordbox" required="true" missingMessage="请输入密码" prompt="请输入密码" style="width:160px;"/>
+				<input id="PWD" name="PASSWORD" class="easyui-passwordbox" required="true" validType="eqPwd['#R_PWD']" missingMessage="请输入密码" prompt="请输入密码" style="width:160px;"/>
 			</td>
 			<th>确认密码</th>
 			<td>
-				<input name="CONFIRM_PASSWORD" class="easyui-passwordbox" required="true" validType="eqPwd['#PWD']" missingMessage="请确认密码" prompt="请确认密码" style="width:160px;"/>
+				<input id="R_PWD" name="CONFIRM_PASSWORD" class="easyui-passwordbox" required="true" validType="eqPwd['#PWD']" missingMessage="请确认密码" prompt="请确认密码" style="width:160px;"/>
 			</td>
 		</tr>
 		<tr>
